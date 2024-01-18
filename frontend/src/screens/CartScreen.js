@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../slices/cartSlice";
+import { addToCart, removeFromCart } from "../slices/cartSlice";
 import { FaTrash } from "react-icons/fa";
 import {
   Button,
@@ -22,6 +22,14 @@ const CartScreen = () => {
   async function addToCartHandler(item, qty) {
     dispatch(addToCart({ ...item, qty }));
   }
+
+  async function removeFromCartHandler(id) {
+    dispatch(removeFromCart(id));
+  }
+
+  async function chekoutHandler() {
+    navigate("/login?redirect=/shipping");
+  }
   return (
     <Row>
       <Col md={8}>
@@ -35,7 +43,7 @@ const CartScreen = () => {
             {cartItems.map((item) => (
               <ListGroup.Item key={item._id}>
                 <Row>
-                  <Col md={2}>
+                  <Col md={2} sm={3}>
                     <Image
                       src={item.image}
                       alt={item.name}
@@ -43,11 +51,13 @@ const CartScreen = () => {
                       rounded
                     ></Image>
                   </Col>
-                  <Col md={3}>
+                  <Col md={3} sm={3}>
                     <Link to={`/product/${item._id}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>{item.price}</Col>
-                  <Col md={2}>
+                  <Col md={2} sm={2}>
+                    {item.price}
+                  </Col>
+                  <Col md={2} sm={2}>
                     <Form.Control
                       as="select"
                       value={item.qty}
@@ -62,8 +72,14 @@ const CartScreen = () => {
                       ))}
                     </Form.Control>
                   </Col>
-                  <Col md={2}>
-                    <Button type="button" variant="light">
+                  <Col md={2} sm={2}>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => {
+                        removeFromCartHandler(item._id);
+                      }}
+                    >
                       <FaTrash></FaTrash>
                     </Button>
                   </Col>
@@ -91,6 +107,7 @@ const CartScreen = () => {
                 type="button"
                 className="btn-block"
                 disabled={cartItems.length === 0}
+                onClick={chekoutHandler}
               >
                 Proceed To Checkout
               </Button>
