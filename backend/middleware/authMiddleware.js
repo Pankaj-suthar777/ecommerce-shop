@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
-import asyncHandler from "./asyncHandler";
-import User from "../Models/userModel";
+import asyncHandler from "./asyncHandler.js";
+import User from "../Models/userModel.js";
 
 // Protect routes
-export const protect = asyncHandler(async (req, res, next) => {
+const protect = asyncHandler(async (req, res, next) => {
   let token;
 
   // Read the JWT  from the cookie
