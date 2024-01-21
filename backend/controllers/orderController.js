@@ -54,15 +54,13 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @access Private
 
 const getOrderbyId = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate(
-    "user",
-    "name email"
-  );
+  const order = await Order.findById(req.params.id).populate("user");
 
   if (order) {
+    console.log(order);
     res.json(order);
   } else {
-    res.status(200).json(order);
+    res.status(404);
     throw new Error("Order not found");
   }
 });
