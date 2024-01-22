@@ -45,7 +45,7 @@ const ProductListScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <Table striped hover responsive className="table-sm">
+          <Table bordered striped hover responsive className="table-sm">
             <thead>
               <tr>
                 <th>ID</th>
@@ -65,7 +65,7 @@ const ProductListScreen = () => {
                   <th>{product.category}</th>
                   <th>{product.brand}</th>
                   <th>
-                    <LinkContainer to={`admin/product/${product._id}/edit`}>
+                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
                       <Button variant="light" className="btn-sm mx-2">
                         <FaEdit></FaEdit>
                       </Button>

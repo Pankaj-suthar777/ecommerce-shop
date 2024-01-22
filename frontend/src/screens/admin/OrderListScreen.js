@@ -15,7 +15,7 @@ const OrderListScreen = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Table striped hover responsive className="table-sm">
+        <Table bordered striped hover responsive className="table-sm">
           <thead>
             <tr>
               <th>ID</th>
