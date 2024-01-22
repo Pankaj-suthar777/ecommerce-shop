@@ -78,7 +78,15 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 // @access Private/Admin
 
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
-  res.send("update order to deliver");
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+  }
+
+  const updateOrder = await order.save();
+  res.json(updateOrder);
 });
 
 // @desc   Get all orders
@@ -86,7 +94,8 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 // @access Private/Admin
 
 const getOrders = asyncHandler(async (req, res) => {
-  res.send("add all order item");
+  const orders = await Order.find({}).populate("user", "id name");
+  res.json(orders);
 });
 
 export {

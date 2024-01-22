@@ -7,6 +7,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../slices/authSlice";
 import { useLogoutMutation } from "../slices/usersApiSlice";
+import { clearCartItems } from "../slices/cartSlice";
 function Header() {
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
@@ -22,6 +23,7 @@ function Header() {
       // NOTE: here we need to reset cart state for when a user logs out so the next
       // user doesn't inherit the previous users cart and shipping
       // dispatch(resetCart());
+      dispatch(clearCartItems());
     } catch (error) {
       console.log(error);
     }
