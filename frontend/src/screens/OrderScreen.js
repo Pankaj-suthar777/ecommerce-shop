@@ -85,10 +85,10 @@ const OrderScreen = () => {
               {order.orderItems.map((item, index) => (
                 <ListGroup.Item key={index}>
                   <Row>
-                    <Col md={1}>
+                    <Col md={2} xs={5}>
                       <Image src={item.image} alt={item.name} fluid rounded />
                     </Col>
-                    <Col md={4}>
+                    <Col md={4} xs={7}>
                       {item.qty} x ${item.price} = ${item.qty * item.price}
                     </Col>
                   </Row>

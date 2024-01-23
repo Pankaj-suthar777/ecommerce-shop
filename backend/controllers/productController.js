@@ -67,10 +67,21 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+const getTopProducts = asyncHandler(async (req, res) => {
+  const product = await Product.find({}).sort({ rating: -1 }).limit(3);
+  if (product) {
+    res.json(product);
+  } else {
+    res.status(404);
+    throw new Error("Resource not found");
+  }
+});
+
 export {
   getProducts,
   getProductById,
   createProducts,
   updateProduct,
   deleteProduct,
+  getTopProducts,
 };
