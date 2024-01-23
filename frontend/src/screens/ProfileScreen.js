@@ -39,7 +39,7 @@ const ProfileScreen = () => {
       toast.error("Password do not match");
     } else {
       try {
-        const res = await updateProfile({
+        await updateProfile({
           _id: userInfo._id,
           name,
           password,

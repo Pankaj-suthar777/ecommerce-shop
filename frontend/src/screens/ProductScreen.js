@@ -19,6 +19,7 @@ import Message from "../components/Message";
 import { useState } from "react";
 import { addToCart } from "../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Meta from "../components/Meta";
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
@@ -74,6 +75,7 @@ const ProductScreen = () => {
         <Message>{error?.data?.message || error.message}</Message>
       ) : (
         <>
+          <Meta title={product.name}></Meta>
           <Row>
             <Col md={5}>
               <Image src={product.image} alt="" fluid></Image>
