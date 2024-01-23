@@ -6,12 +6,21 @@ import { useGetProductsQuery } from "../slices/productsApiSlice";
 import ProductCarousal from "../components/ProductCarousal";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { Link, useParams } from "react-router-dom";
 function HomeScreen() {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const { keyword } = useParams();
+  const { data: products, isLoading, error } = useGetProductsQuery({ keyword });
 
   return (
     <>
-      <ProductCarousal></ProductCarousal>
+      {!keyword ? (
+        <ProductCarousal></ProductCarousal>
+      ) : (
+        <Link to="/" className="btn btn-light mb-4">
+          Go Back
+        </Link>
+      )}
+
       {isLoading ? (
         <Loader></Loader>
       ) : error ? (
