@@ -54,3 +54,8 @@ table th {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
 }
+.text-r {
+  padding-left: 5px;
+  position: relative;
+  top: 3px;
+}
