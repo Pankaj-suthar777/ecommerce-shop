@@ -14,65 +14,47 @@ const UserEditScreen = () => {
   const { id: userId } = useParams();
 
   const [name, setName] = useState("");
-  const [eamil, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
-  const [brand, setBrand] = useState("");
 
   const {
-    data: product,
+    data: user,
     isLoading,
     refetch,
     error,
-  } = useGetProductDetailsQuery(productId);
+  } = useGetUserDetailsQuery(userId);
 
-  const [updateProduct, { isLoading: loadingUpdate }] =
-    useUpdateProductMutation();
-
-  const [uploadProductImage, { isLoading: loadingUpload }] =
-    useUploadProductImageMutation();
+  const [updateUser, { isLoading: loadingUpdate }] = useUpdateUserMutation();
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (product) {
-      setName(product.name);
-      setPrice(product.price);
-      setImage(product.image);
-      setBrand(product.brand);
-      setCategory(product.category);
-      setCountInStock(product.countInStock);
-      setDescription(product.description);
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      setIsAdmin(user.isAdmin);
     }
-  }, [product]);
+  }, [user]);
 
   async function submitHandler(e) {
     e.preventDefault();
-    const updateProductDetails = {
-      _id: productId,
-      name,
-      price,
-      image,
-      brand,
-      category,
-      countInStock,
-      description,
-    };
 
-    const result = await updateProduct(updateProductDetails);
-    if (result.error) {
-      toast.error(result.error);
-    } else {
-      toast.success("Product updated");
-      navigate("/admin/productlist");
+    try {
+      await updateUser({ userId, email, name, isAdmin });
+      toast.success("User updated successfully");
+      refetch();
+      navigate("/admin/userlist");
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
     }
   }
 
   return (
     <>
-      <Link to="/admin/productlist" className="btn btn-light my-3">
+      <Link to="/admin/userlist" className="btn btn-light my-3">
         Go Back
       </Link>
       <FormContainer>
-        <h1>Edit Product</h1>
+        <h1>Edit User</h1>
         {loadingUpdate && <Loader></Loader>}
         {isLoading ? (
           <Loader></Loader>
@@ -90,68 +72,23 @@ const UserEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="price" className="my-2">
-              <Form.Label>Price</Form.Label>
+            <Form.Group controlId="email" className="my-2">
+              <Form.Label>Email</Form.Label>
               <Form.Control
-                type="number"
-                placeholder="Enter price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                type="eamil"
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="image" className="my-2">
-              <Form.Label>Image</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter image url"
-                value={image}
-              ></Form.Control>
-              <Form.Control
-                type="file"
-                label="Choose file"
-                onChange={uploadFileHandler}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="brand" className="my-2">
-              <Form.Label>Brand</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter brand"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="countInStock" className="my-2">
-              <Form.Label>Count In Stock</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter count in stock"
-                value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="category" className="my-2">
-              <Form.Label>Category</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="desciption" className="my-2">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></Form.Control>
+            <Form.Group controlId="isAdmin" className="my-2">
+              <Form.Check
+                type="checkbox"
+                label="Is Admin"
+                checked={isAdmin}
+                onChange={(e) => setIsAdmin(e.target.checked)}
+              ></Form.Check>
             </Form.Group>
 
             <Button type="submit" variant="primary" className="my-2">
