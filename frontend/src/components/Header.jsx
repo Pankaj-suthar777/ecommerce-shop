@@ -42,15 +42,19 @@ function Header() {
           <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <SearchBox></SearchBox>
+              <div className="search-box">
+                <SearchBox></SearchBox>
+              </div>
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <FaShoppingCart></FaShoppingCart> Cart
-                  {cartItems.length > 0 && (
-                    <Badge pill bg="success" style={{ marginLeft: "5px" }}>
-                      {cartItems.reduce((a, c) => a + c.qty, 0)}
-                    </Badge>
-                  )}
+                  <div className="cart-logo">
+                    <FaShoppingCart></FaShoppingCart> Cart
+                    {cartItems.length > 0 && (
+                      <Badge pill bg="success" style={{ marginLeft: "5px" }}>
+                        {cartItems.reduce((a, c) => a + c.qty, 0)}
+                      </Badge>
+                    )}
+                  </div>
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (

@@ -20,21 +20,26 @@ function HomeScreen() {
           Go Back
         </Link>
       )}
-
-      {isLoading ? (
-        <Loader></Loader>
-      ) : error ? (
-        <Message>{error?.data?.message || error.error} </Message>
+      {keyword && products.length === 0 ? (
+        <h2>No product found</h2>
       ) : (
         <>
-          <h1>Latest Products</h1>
-          <Row>
-            {products.map((product) => (
-              <Col key={product._id} xs={6} sm={3} md={6} lg={4} xl={3}>
-                <Product product={product}></Product>
-              </Col>
-            ))}
-          </Row>
+          {isLoading ? (
+            <Loader></Loader>
+          ) : error ? (
+            <Message>{error?.data?.message || error.error} </Message>
+          ) : (
+            <>
+              <h1>Latest Products</h1>
+              <Row>
+                {products.map((product) => (
+                  <Col key={product._id} xs={6} sm={3} md={6} lg={4} xl={3}>
+                    <Product product={product}></Product>
+                  </Col>
+                ))}
+              </Row>
+            </>
+          )}
         </>
       )}
     </>

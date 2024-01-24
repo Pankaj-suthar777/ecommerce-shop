@@ -59,3 +59,18 @@ table th {
   position: relative;
   top: 3px;
 }
+
+@media screen and (width < 500px) {
+  .search-box {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .cart-logo {
+    font-size: larger;
+  }
+}
+.cart-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
