@@ -9,6 +9,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useCreateOrderMutation } from "../slices/ordersApiSlice.js";
 import { clearCartItems } from "../slices/cartSlice.js";
 import Loader from "../components/Loader.jsx";
+import StepByStep from "../components/StepByStep.jsx";
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
@@ -44,7 +45,8 @@ const PlaceOrderScreen = () => {
   }
   return (
     <>
-      <CheckOutSteps step1 step2 step3 step4></CheckOutSteps>
+      {/* <CheckOutSteps step1 step2 step3 step4></CheckOutSteps> */}
+      <StepByStep step={3}></StepByStep>
       <Row>
         <Col md={8}>
           <ListGroup variant="flush">

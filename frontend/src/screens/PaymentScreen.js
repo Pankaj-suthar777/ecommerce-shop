@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ChechoutSteps from "../components/ChechoutSteps";
 import { Button, Col, Form } from "react-bootstrap";
 import { savePaymentMethod } from "../slices/cartSlice";
+import StepByStep from "../components/StepByStep.jsx";
 
 const PaymentScreen = () => {
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
@@ -28,7 +29,8 @@ const PaymentScreen = () => {
   }
   return (
     <FormContainer>
-      <ChechoutSteps step1 step2 step3></ChechoutSteps>
+      {/* <ChechoutSteps step1 step2 step3></ChechoutSteps> */}
+      <StepByStep step={3}></StepByStep>
       <h1>Payment Method</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group>
