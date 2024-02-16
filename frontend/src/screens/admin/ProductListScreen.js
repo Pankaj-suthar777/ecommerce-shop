@@ -11,7 +11,7 @@ import Loader from "../../components/Loader";
 import { Button, Col, Row, Table } from "react-bootstrap";
 
 const ProductListScreen = () => {
-  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+  const { data, isLoading, error, refetch } = useGetProductsQuery();
 
   const [createdProduct, { isLoading: loadingCreate }] =
     useCreatedProductMutation();
@@ -24,7 +24,6 @@ const ProductListScreen = () => {
       try {
         await deleteProduct(id);
         refetch();
-        toast.success("Product deleted");
       } catch (error) {
         toast.error(error?.data?.message || error.error);
       }
@@ -72,27 +71,27 @@ const ProductListScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {data.products.map((product) => (
                 <tr key={product._id}>
-                  <th>{product._id}</th>
-                  <th>{product.name}</th>
-                  <th>{product.price}</th>
-                  <th>{product.category}</th>
-                  <th>{product.brand}</th>
-                  <th>
+                  <td>{product._id}</td>
+                  <td>{product.name}</td>
+                  <td>${product.price}</td>
+                  <td>{product.category}</td>
+                  <td>{product.brand}</td>
+                  <td>
                     <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                      <Button variant="light" className="btn-sm mx-2">
-                        <FaEdit></FaEdit>
+                      <Button variant='light' className='btn-sm mx-2'>
+                        <FaEdit />
                       </Button>
                     </LinkContainer>
                     <Button
-                      variant="light"
-                      className="btn-sm mx-2"
+                      variant='danger'
+                      className='btn-sm'
                       onClick={() => deleteHandler(product._id)}
                     >
-                      <FaTrash></FaTrash>
+                      <FaTrash style={{ color: 'white' }} />
                     </Button>
-                  </th>
+                  </td>
                 </tr>
               ))}
             </tbody>
