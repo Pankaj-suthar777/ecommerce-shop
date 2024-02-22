@@ -10,7 +10,10 @@ import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoute.js";
 const port = process.env.PORT || 5000;
+const cors = require("cors");
 
+app.use(cors());
+app.options("*", cors());
 connectDB();
 
 const app = express();
