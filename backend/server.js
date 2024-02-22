@@ -11,12 +11,12 @@ import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoute.js";
 const port = process.env.PORT || 5000;
 import cors from "cors";
-
+const app = express();
 app.use(cors());
 app.options("*", cors());
 connectDB();
 
-const app = express();
+
 
 // Body parser middelware
 app.use(express.json());
