@@ -11,7 +11,9 @@ import Loader from "../../components/Loader";
 import { Button, Col, Row, Table } from "react-bootstrap";
 
 const ProductListScreen = () => {
-  const { data, isLoading, error, refetch } = useGetProductsQuery();
+  const keyword = "";
+  const { data, isLoading, error, refetch } = useGetProductsQuery({ keyword });
+  console.log(data);
 
   const [createdProduct, { isLoading: loadingCreate }] =
     useCreatedProductMutation();
@@ -71,7 +73,7 @@ const ProductListScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {data.products.map((product) => (
+              {data?.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
@@ -80,16 +82,16 @@ const ProductListScreen = () => {
                   <td>{product.brand}</td>
                   <td>
                     <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                      <Button variant='light' className='btn-sm mx-2'>
+                      <Button variant="light" className="btn-sm mx-2">
                         <FaEdit />
                       </Button>
                     </LinkContainer>
                     <Button
-                      variant='danger'
-                      className='btn-sm'
+                      variant="danger"
+                      className="btn-sm"
                       onClick={() => deleteHandler(product._id)}
                     >
-                      <FaTrash style={{ color: 'white' }} />
+                      <FaTrash style={{ color: "white" }} />
                     </Button>
                   </td>
                 </tr>
