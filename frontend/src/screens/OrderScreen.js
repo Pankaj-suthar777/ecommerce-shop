@@ -61,12 +61,12 @@ const OrderScreen = () => {
 
     const { sessionId } = response;
     console.log(response);
-    // const { error } = await stripe.redirectToCheckout({
-    //   sessionId,
-    // });
-    // if (error) {
-    //   console.log(error.message);
-    // }
+    const { error } = await stripe.redirectToCheckout({
+      sessionId,
+    });
+    if (error) {
+      console.log(error.message);
+    }
   };
 
   return isLoading ? (

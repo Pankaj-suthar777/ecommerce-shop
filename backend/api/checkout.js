@@ -1,7 +1,8 @@
 import stripeApi from "../stripe.js";
 
 async function createCheckoutSession(req, res) {
-  const domainUrl = "http://localhost:3000";
+  const domainUrl =
+    "https://proshipshop.onrender.com/order/6627b9d8fe298afc669a8f5f";
   const { line_items, customer_email } = req.body;
   // check req body has line items and email
   if (!line_items || !customer_email) {
