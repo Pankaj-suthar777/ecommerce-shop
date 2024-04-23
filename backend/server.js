@@ -41,22 +41,22 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 //app.use(notFound);
 
-// const __dirname = path.resolve(); //set __dirname to current directory
-// app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+const __dirname = path.resolve(); //set __dirname to current directory
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-// if (process.env.NODE_ENV === "production") {
-//   //set static folder
-//   app.use(express.static(path.join(__dirname, "/frontend/build")));
+if (process.env.NODE_ENV === "production") {
+  //set static folder
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
 
-//   //any route that is not api will be redirected to index.html
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-//   });
-// } else {
-//   app.get("/", (req, res) => {
-//     res.send("API is running...");
-//   });
-// }
+  //any route that is not api will be redirected to index.html
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running...");
+  });
+}
 
 if (process.env)
   app.listen(port, () => console.log(`Server running on port ${port}`));
