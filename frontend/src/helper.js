@@ -10,6 +10,7 @@ export async function fetchFromAPI(endPoint, opts) {
       "Content-Type": "application/json",
     },
   });
+  console.log(res);
 
   return res.json();
 }
