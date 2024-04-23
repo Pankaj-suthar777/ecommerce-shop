@@ -8,7 +8,8 @@ import {
 } from "../slices/ordersApiSlice";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-
+import { useStripe } from "@stripe/react-stripe-js";
+import { fetchFromAPI } from "../helper";
 const OrderScreen = () => {
   const { id: orderId } = useParams();
   const { userInfo } = useSelector((state) => state.auth);
@@ -32,6 +33,41 @@ const OrderScreen = () => {
       toast.error(error?.data?.message || error.message);
     }
   }
+
+  const stripe = useStripe();
+  console.log(order);
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+    const line_items = order.orderItems.map((item) => {
+      return {
+        quantity: item.qty,
+        price_data: {
+          currency: "usd",
+          unit_amount: item.price * 100,
+          product_data: {
+            name: item.name,
+            description: "Product",
+            images: [item.image],
+          },
+        },
+      };
+    });
+
+    console.log(line_items);
+
+    const response = await fetchFromAPI("create-checkout-session", {
+      body: { line_items, customer_email: userInfo.email },
+    });
+
+    const { sessionId } = response;
+    console.log(response);
+    // const { error } = await stripe.redirectToCheckout({
+    //   sessionId,
+    // });
+    // if (error) {
+    //   console.log(error.message);
+    // }
+  };
 
   return isLoading ? (
     <Loader />
@@ -103,7 +139,6 @@ const OrderScreen = () => {
               <ListGroup.Item>
                 <h2>Order Summary</h2>
               </ListGroup.Item>
-
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
@@ -125,9 +160,7 @@ const OrderScreen = () => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-
               {loadingDeliver && <Loader></Loader>}
-
               {userInfo &&
                 userInfo.isAdmin &&
                 order.isPaid &&
@@ -142,6 +175,17 @@ const OrderScreen = () => {
                     </Button>
                   </ListGroup.Item>
                 )}
+              {
+                <ListGroup.Item>
+                  <Button
+                    type="button"
+                    className="btn btn-block"
+                    onClick={handleCheckout}
+                  >
+                    Pay now
+                  </Button>
+                </ListGroup.Item>
+              }
             </ListGroup>
           </Card>
         </Col>

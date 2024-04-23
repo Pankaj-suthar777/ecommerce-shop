@@ -60,7 +60,7 @@ const ProductScreen = () => {
       setRating(0);
       setComment("");
     } catch (error) {
-      toast.error(error?.data?.message || error.error);
+      toast.error("Product already reviewed");
     }
   }
 
