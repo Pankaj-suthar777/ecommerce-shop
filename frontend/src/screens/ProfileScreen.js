@@ -27,11 +27,7 @@ const ProfileScreen = () => {
     }
   }, [userInfo.name, userInfo.email, userInfo]);
 
-  const {
-    data: orders,
-    isLoading: orderIsLoading,
-    error,
-  } = useGetMyOrdersQuery();
+  const { data, isLoading: orderIsLoading, error } = useGetMyOrdersQuery();
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -52,6 +48,8 @@ const ProfileScreen = () => {
       }
     }
   }
+
+  const orders = data.reverse();
 
   return (
     <Row>
