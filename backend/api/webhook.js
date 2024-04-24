@@ -9,7 +9,7 @@ async function webhook(req, res) {
     event = stripeApi.webhooks.constructEvent(
       req["rawBody"],
       sig,
-      "we_1P8jSNGr7paNn0fxVtkkbP5j"
+      "whsec_dn2Pqyw7VmJDiqUVqRkVVoov9t4kLdk2"
     );
   } catch (error) {
     return res.status(400).send(`Webhook error ${error.message}`);

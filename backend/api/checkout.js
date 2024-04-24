@@ -20,8 +20,8 @@ async function createCheckoutSession(req, res) {
       mode: "payment",
       line_items,
       customer_email,
-      success_url: `${domainUrl}?success='true'`,
-      cancel_url: `${domainUrl}/success='false'`,
+      success_url: `${domainUrl}?success=true`,
+      cancel_url: `${domainUrl}/success=false`,
       metadata: {
         orderId: orderId,
       },
