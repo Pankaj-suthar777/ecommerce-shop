@@ -21,7 +21,7 @@ async function createCheckoutSession(req, res) {
       line_items,
       customer_email,
       success_url: `${domainUrl}?success=true`,
-      cancel_url: `${domainUrl}/success=false`,
+      cancel_url: `${domainUrl}/?success=false`,
       metadata: {
         orderId: orderId,
       },
