@@ -49,7 +49,7 @@ const ProfileScreen = () => {
     }
   }
 
-  const orders = data.reverse();
+  const orders = data ? [...data].reverse() : [];
 
   return (
     <Row>
