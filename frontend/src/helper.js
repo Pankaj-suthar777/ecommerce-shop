@@ -1,4 +1,4 @@
-const API = "https://proshipshop.onrender.com";
+const API = "http://localhost:5000";
 
 export async function fetchFromAPI(endPoint, opts) {
   const { method, body } = { method: "POST", body: null, ...opts };
@@ -10,7 +10,8 @@ export async function fetchFromAPI(endPoint, opts) {
       "Content-Type": "application/json",
     },
   });
-  console.log(res);
+  const r = await res.json();
+  console.log(r);
 
-  return res.json();
+  return r;
 }

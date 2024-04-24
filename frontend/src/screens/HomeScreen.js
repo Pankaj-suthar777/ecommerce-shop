@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import Product from "../components/Product";
 
@@ -7,9 +7,23 @@ import ProductCarousal from "../components/ProductCarousal";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 function HomeScreen() {
   const { keyword } = useParams();
   const { data: products, isLoading, error } = useGetProductsQuery({ keyword });
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const successValue = params.get("success");
+    if (successValue === "true") {
+      toast.success("Order Paid Successfully");
+    } else if (successValue === "false") {
+      toast.error("Payment failed");
+    } else {
+      return;
+    }
+  }, []);
 
   return (
     <>

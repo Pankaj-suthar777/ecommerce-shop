@@ -1,9 +1,10 @@
 import stripeApi from "../stripe.js";
 
 async function createCheckoutSession(req, res) {
-  const domainUrl =
-    "https://proshipshop.onrender.com/order/6627b9d8fe298afc669a8f5f";
-  const { line_items, customer_email } = req.body;
+  const domainUrl = "https://proshipshop.onrender.com";
+
+  const { line_items, customer_email, orderId } = req.body;
+  console.log(line_items);
   // check req body has line items and email
   if (!line_items || !customer_email) {
     return res
@@ -19,8 +20,11 @@ async function createCheckoutSession(req, res) {
       mode: "payment",
       line_items,
       customer_email,
-      success_url: `${domainUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${domainUrl}/canceled`,
+      success_url: `${domainUrl}?success='true'`,
+      cancel_url: `${domainUrl}/success='false'`,
+      metadata: {
+        orderId: orderId,
+      },
     });
 
     res.status(200).json({ sessionId: session.id });

@@ -15,8 +15,7 @@ import webhook from "./api/webhook.js";
 const port = process.env.PORT || 5000;
 import cors from "cors";
 const app = express();
-app.use(cors());
-app.options("*", cors());
+app.use(cors({ origin: true }));
 connectDB();
 
 // stripe
@@ -25,7 +24,6 @@ app.use(
     verify: (req, res, buffer) => (req["rawBody"] = buffer),
   })
 );
-app.post("/create-checkout-session", createCheckoutSession);
 app.post("/webhook", webhook);
 
 // Body parser middelware
@@ -40,6 +38,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 //app.use(notFound);
+
+app.post("/create-checkout-session", createCheckoutSession);
 
 const __dirname = path.resolve(); //set __dirname to current directory
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

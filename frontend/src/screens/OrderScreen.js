@@ -47,16 +47,13 @@ const OrderScreen = () => {
           product_data: {
             name: item.name,
             description: "Product",
-            images: [item.image],
           },
         },
       };
     });
 
-    console.log(line_items);
-
     const response = await fetchFromAPI("create-checkout-session", {
-      body: { line_items, customer_email: userInfo.email },
+      body: { line_items, customer_email: userInfo.email, orderId },
     });
 
     const { sessionId } = response;
