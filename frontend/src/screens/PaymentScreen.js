@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import FormContainer from "../components/FormContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ChechoutSteps from "../components/ChechoutSteps";
 import { Button, Col, Form } from "react-bootstrap";
 import { savePaymentMethod } from "../slices/cartSlice";
 import StepByStep from "../components/StepByStep.jsx";
 
 const PaymentScreen = () => {
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState("Credit Card");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,9 +38,9 @@ const PaymentScreen = () => {
             <Form.Check
               type="radio"
               className="my-2"
-              label="PayPal or Credit Card"
+              label="Credit Card"
               name="paymentMethod"
-              value="PayPal"
+              value="Credit Card"
               checked
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>

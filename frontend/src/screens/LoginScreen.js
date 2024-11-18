@@ -34,7 +34,9 @@ const LoginScreen = () => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
-      dispatch(setCredentials({ ...res }));
+      const { token, ...re } = res;
+      dispatch(setCredentials({ ...re }));
+      localStorage.setItem("accessToken", token);
       navigate(redirect);
     } catch (error) {
       toast.error("Invaild Details");

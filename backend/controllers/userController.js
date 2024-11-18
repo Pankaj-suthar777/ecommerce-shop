@@ -16,19 +16,12 @@ const authUser = asyncHandler(async (req, res) => {
       expiresIn: "10d",
     });
 
-    //set jwt as HTTP-Only cookie
-    res.cookie("jwt", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== "development",
-      sameSite: "strict",
-      maxAge: 10 * 24 * 60 * 60 * 1000,
-    });
-
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      token,
     });
   } else {
     res.status(401);

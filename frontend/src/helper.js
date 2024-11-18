@@ -1,5 +1,6 @@
 const API = "https://proshipshop.onrender.com";
 
+// const API = "http://localhost:3000";
 export async function fetchFromAPI(endPoint, opts) {
   const { method, body } = { method: "POST", body: null, ...opts };
 

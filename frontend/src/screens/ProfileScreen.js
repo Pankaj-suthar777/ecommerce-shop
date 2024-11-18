@@ -28,7 +28,6 @@ const ProfileScreen = () => {
   }, [userInfo.name, userInfo.email, userInfo]);
 
   const { data, isLoading: orderIsLoading, error } = useGetMyOrdersQuery();
-
   async function submitHandler(e) {
     e.preventDefault();
     if (password !== confirmPassword) {
